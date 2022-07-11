@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TankkauksetASPNET.Models.Tankkaus>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pvm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Litraa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Euroa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reknro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mittarilukema)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ajomaara)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Keskikulutus)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pvm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Litraa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Euroa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reknro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mittarilukema)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ajomaara)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Keskikulutus)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TankkausId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TankkausId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TankkausId })
+        </td>
+    </tr>
+}
+
+</table>

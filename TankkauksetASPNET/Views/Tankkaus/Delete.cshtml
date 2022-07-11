@@ -1,0 +1,80 @@
+﻿@model TankkauksetASPNET.Models.Tankkaus
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tankkaus</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pvm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pvm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Litraa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Litraa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Euroa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Euroa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reknro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reknro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mittarilukema)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mittarilukema)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ajomaara)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ajomaara)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Keskikulutus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Keskikulutus)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

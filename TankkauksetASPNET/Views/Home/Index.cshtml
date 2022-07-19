@@ -4,22 +4,10 @@
 
 <div class="jumbotron">
     <h1>Auton keskikulutus</h1>
-    <div class="laskuri">
-        <div class="form-group">
-            <label for="no1">Litrat (l)</label>
-            <input type="text" class="form-control" id="no1"/>
-        </div>
-        <div class="form-group">
-            <label for="no2">Ajettu matka (km)</label>
-            <input type="text" class="form-control" id="no2" />
-        </div>
-        <input type="submit" value="Laske" name="tot" href="@Url.Action("YourAction","TankkausController")" style="font-size:17px; line-height:22px; color:#000080; font-weight:bold;  padding:2px; height:35px; width:105px;">
-        <br /><br />
-        <div class="form-group">
-            <label for="tot">Yhteensä</label>
-            <input type="text" class="form-control" id="tot" name="tot" />
-        </div>
-    </div>
+    <p>Ajetut kilometrit (km):<input id="distance" type="number" min="0" max="1000000" onchange="computeConsumption()"></p>
+    <p>Litrat (L):<input id="fuel" type="number" min="0" max="10000000" step="1" onchange="computeConsumption()"></p>
+    <p>Polttoaineen hinta (€) <input id="costper" type="number" min="1.49" max="10" step="0.01" value="2.32" onchange="computeConsumption()"></p>
+    <h2 id="consumption"></h2>
 
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
@@ -46,3 +34,14 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+<script type="text/javascript">
+    function computeConsumption() {
+        var distance = document.getElementById('distance').value;
+        var fuel = document.getElementById('fuel').value;
+        var costper = document.getElementById('costper').value;
+        var consumed = (fuel / (distance / 100)).toFixed(2);
+        var costper100 = (consumed * costper).toFixed(2);
+        document.getElementById('consumption').innerHTML = "Keskikulutus on " + consumed + " Litraa/100km ( € " + costper100 + " / 100km ) <br><br>Polttoaineen hinta = € " + (fuel * costper).toFixed(2);
+    }
+</script>

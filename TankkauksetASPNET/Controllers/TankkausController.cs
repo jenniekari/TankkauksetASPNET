@@ -126,10 +126,5 @@ namespace TankkauksetASPNET.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult YourAction()
-        {
-            //C# code here
-            return View();
-        }
     }
 }

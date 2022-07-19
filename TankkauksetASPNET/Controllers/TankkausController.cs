@@ -12,7 +12,7 @@ namespace TankkauksetASPNET.Controllers
 {
     public class TankkausController : Controller
     {
-        private TankkauksetEntities db = new TankkauksetEntities();
+        TankkauksetEntities db = new TankkauksetEntities();
 
         // GET: Tankkaus
         public ActionResult Index()
@@ -32,6 +32,9 @@ namespace TankkauksetASPNET.Controllers
             {
                 return HttpNotFound();
             }
+           /* Tankkaus lasku = db.Tankkaus.Find(id);
+            ViewBag.Totaali = 100 * lasku.Mittarilukema / lasku.Ajomaara;
+            return View(lasku);*/
             return View(tankkaus);
         }
 
@@ -122,6 +125,11 @@ namespace TankkauksetASPNET.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult YourAction()
+        {
+            //C# code here
+            return View();
         }
     }
 }

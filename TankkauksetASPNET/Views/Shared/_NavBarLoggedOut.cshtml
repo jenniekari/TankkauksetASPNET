@@ -1,0 +1,41 @@
+﻿<style>
+    #navbarSupportedContent {
+        margin: 5px 0px;
+    }
+
+    li {
+        margin-right: 40px;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/Index">Etusivu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Home/About">Tietoa meistä</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="~/Tankkaukset/Index">Tankkaukset</a>
+            <li class="nav-item">
+                <a class="nav-link" onmouseover="this.style.cursor='pointer'" data-toggle="modal" data-target="#myModal">Kirjautuminen</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<script type="text/javascript">
+    jQuery(function ($) {
+        var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+        $('nav a').each(function () {
+            if (this.href === path) {
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>

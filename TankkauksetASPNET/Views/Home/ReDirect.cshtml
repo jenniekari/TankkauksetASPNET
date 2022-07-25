@@ -1,0 +1,26 @@
+﻿<div class="margin">
+    @{
+        ViewBag.Title = "ReDirect";
+    }
+
+    <h2>Kirjaudu sisään</h2>
+
+    <br />
+    <h4 style="color:red">Varmista että antamasi käyttäjätunnus ja salasana ovat oikeat!</h4>
+    <br />
+    @*Button to Open the Modal*@
+    <p>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+            Kirjaudu sisään
+        </button>
+    </p>
+
+    <br />
+    <img id="logos" src="~/image/toka.jpg" width="1024" height="682" class="kuva5" />
+    <br />
+
+    @{
+        Html.RenderPartial("_LoginModal");
+    }
+
+</div>

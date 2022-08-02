@@ -1,69 +1,76 @@
-﻿@model IEnumerable<TankkauksetASPNET.Models.Tankkaus>
+﻿@model PagedList.IPagedList<TankkauksetASPNET.Models.Tankkaus>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Tankkaukset</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>@Html.ActionLink("Päivämäärä", "Index", new { sortOrder = ViewBag.DateSortParm })</th>
+
         <th>
-            @Html.DisplayNameFor(model => model.Pvm)
+            @Html.DisplayName("Litra")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Litraa)
+            @Html.DisplayName("Euro")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Euroa)
+            @Html.DisplayName("Rkrnro")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Reknro)
+            @Html.DisplayName("Mittarilukema")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Mittarilukema)
+            @Html.DisplayName("Ajomäärä")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ajomaara)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Keskikulutus)
+            @Html.DisplayName("Keskikulutus")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pvm)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Litraa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Euroa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reknro)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mittarilukema)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ajomaara)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Keskikulutus)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TankkausId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TankkausId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TankkausId })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pvm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Litraa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Euroa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reknro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mittarilukema)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ajomaara)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Keskikulutus)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TankkausId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TankkausId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TankkausId })
+            </td>
+        </tr>
+    }
 </table>
+
+@*Sivuttaminen eli sivujen lukumäärä*@
+Sivu @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+@*Seuraavan sivun klikkaus*@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.currentFilter }))

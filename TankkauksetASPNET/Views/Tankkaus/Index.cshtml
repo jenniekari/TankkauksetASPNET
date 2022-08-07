@@ -8,8 +8,18 @@
 
 <h2>Tankkaukset</h2>
 
+@using (Html.BeginForm("Index", "Tankkaus", FormMethod.Get))
+{
+    <div class="input-group">
+        <p class="px-1">@Html.Label("Etsi rekisterinumerolla:")</p>
+        <p class="px-1">@Html.TextBox("SearchString", ViewBag.currentFilter as string, new { @class = "form-control" })</p> @*Tällä nimellä kontrolleri näkee mitä tekstiboksiin on syötetty *@
+        <p class="px-1"><input type="submit" value="Etsi" class="form-control" /></p>
+    </div>
+}
+
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <br />
+    @Html.ActionLink("Luo uusi", "Create")
 </p>
 <table class="table">
     <tr>
@@ -61,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Keskikulutus)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TankkausId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TankkausId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TankkausId })
+                @Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |
+                @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
+                @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
             </td>
         </tr>
     }

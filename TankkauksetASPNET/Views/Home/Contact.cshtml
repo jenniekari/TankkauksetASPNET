@@ -1,21 +1,21 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<div class="backgroundColor">
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    <h2>Yhteystiedot</h2>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <address>
+        Tankkaukset Oy<br />
+        Elimäenkatu 5a, 00510 Helsinki<br />
+        <abbr title="Phone">Puh:</abbr>
+        045 334 4524
+    </address>
 
+    <address>
+        <strong>Asiakaspalvelu: </strong><a href="mailto:info@tankkaukset.fi">Info@tankkaukset.fi</a>
+    </address>
+</div>
 @{
     Html.RenderPartial("_LoginModal");
 }

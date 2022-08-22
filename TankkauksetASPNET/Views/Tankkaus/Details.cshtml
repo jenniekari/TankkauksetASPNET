@@ -6,7 +6,7 @@
 
 <h2>Lisätiedot</h2>
 
-<div>
+<div class="jumbotron">
     <h4>Tankkaus</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -41,8 +41,9 @@
         <dd>@Html.DisplayFor(model => model.Keskikulutus)</dd>
 
     </dl>
+    <p>
+        @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TankkausId }) |
+        @Html.ActionLink("Takaisin", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TankkausId }) |
-    @Html.ActionLink("Takaisin", "Index")
-</p>
+

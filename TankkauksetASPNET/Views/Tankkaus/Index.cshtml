@@ -10,17 +10,20 @@
 
 @using (Html.BeginForm("Index", "Tankkaus", FormMethod.Get))
 {
+<div class="jumbotron">
     <div class="input-group">
         <p class="px-1">@Html.Label("Etsi rekisterinumerolla:")</p>
         <p class="px-1">@Html.TextBox("SearchString", ViewBag.currentFilter as string, new { @class = "form-control" })</p> @*Tällä nimellä kontrolleri näkee mitä tekstiboksiin on syötetty *@
         <p class="px-1"><input type="submit" value="Etsi" class="form-control" /></p>
+            <p>
+                <br />
+                @Html.ActionLink("Luo uusi", "Create")
+            </p>
+        </div>
     </div>
 }
 
-<p>
-    <br />
-    @Html.ActionLink("Luo uusi", "Create")
-</p>
+<div class="jumbotron">
 <table class="table">
     <tr>
         <th>@Html.ActionLink("Päivämäärä", "Index", new { sortOrder = ViewBag.DateSortParm })</th>
@@ -78,9 +81,11 @@
         </tr>
     }
 </table>
+</div>
+<div class="jumbotron">
+    @*Sivuttaminen eli sivujen lukumäärä*@
+    Sivu @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
-@*Sivuttaminen eli sivujen lukumäärä*@
-Sivu @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-
-@*Seuraavan sivun klikkaus*@
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.currentFilter }))
+    @*Seuraavan sivun klikkaus*@
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.currentFilter }))
+</div>

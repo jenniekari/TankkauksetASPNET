@@ -21,6 +21,6 @@ namespace TankkauksetASPNET.Models
         public string Reknro { get; set; }
         public int Mittarilukema { get; set; }
         public int Ajomaara { get; set; }
-        public decimal Keskikulutus { get; set; }
+        public Nullable<decimal> Keskikulutus { get; set; }
     }
 }

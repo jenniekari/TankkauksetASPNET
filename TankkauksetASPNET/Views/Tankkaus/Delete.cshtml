@@ -4,11 +4,15 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Poista</h2>
 
-<h3>Haluatko varmasti poistaa?</h3>
+<style>
+    a {
+        color: black;
+    }
+</style>
+
 <div class="jumbotron">
-    <h4>Tankkaus</h4>
+    <h2>Poista tankkausdata</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -58,22 +62,26 @@
         <dd>
             @Html.DisplayFor(model => model.Ajomaara)
         </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.Keskikulutus)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Keskikulutus)
+            @{
+                var result = Model.Litraa * 100 / Model.Ajomaara;
+                <span>@result.ToString("0.00")</span>
+            }        
         </dd>
-
+        
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Poista" class="btn btn-default" /> |
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Poista" class="btn btn-danger" /> |
             @Html.ActionLink("Takaisin", "Index")
         </div>
     }

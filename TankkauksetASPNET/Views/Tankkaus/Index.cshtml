@@ -6,86 +6,122 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Tankkaukset</h2>
+<style>
+    tr:nth-child(even) {
+        background: #CCC
+    }
+
+    tr:nth-child(odd) {
+        background: #FFF
+    }
+
+    a{
+        color:black;
+    }
+
+    button {
+        background-color: green;
+        color: white;
+        font-weight: bold;
+        font-size: 1.5em;
+        border-color: green;
+    }
+
+    h1 {
+        color: #ffffff;
+        font-family: 'Raleway',sans-serif;
+        font-size: 62px;
+        font-weight: 800;
+        line-height: 72px;
+        margin: 0 0 24px;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 2px white, 0 0 1em black;
+    }
+</style>
+
+<h1>Tankkaukset</h1>
 
 @using (Html.BeginForm("Index", "Tankkaus", FormMethod.Get))
 {
 <div class="jumbotron">
     <div class="input-group">
+        <button type="button" onclick="location.href='@Url.Action("Create")'">
+            Luo uusi tankkausdata
+        </button>
+        <!--@Html.ActionLink("Luo uusi", "Create")-->
+        <br />
+        <br />
         <p class="px-1">@Html.Label("Etsi rekisterinumerolla:")</p>
         <p class="px-1">@Html.TextBox("SearchString", ViewBag.currentFilter as string, new { @class = "form-control" })</p> @*Tällä nimellä kontrolleri näkee mitä tekstiboksiin on syötetty *@
         <p class="px-1"><input type="submit" value="Etsi" class="form-control" /></p>
-            <p>
-                <br />
-                @Html.ActionLink("Luo uusi", "Create")
-            </p>
-        </div>
     </div>
-}
+    <br />
+    <br />
+    <table class="table">
+        <tr style="background-color: #00790a; color: white; font-weight: bold; font-size: 1.05em">
+            <th>@Html.ActionLink("Päivämäärä", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @style = "color:white;" })</th>
 
-<div class="jumbotron">
-<table class="table">
-    <tr>
-        <th>@Html.ActionLink("Päivämäärä", "Index", new { sortOrder = ViewBag.DateSortParm })</th>
-
-        <th>
-            @Html.DisplayName("Litra")
-        </th>
-        <th>
-            @Html.DisplayName("Euro")
-        </th>
-        <th>
-            @Html.DisplayName("Rekisterinumero")
-        </th>
-        <th>
-            @Html.DisplayName("Mittarilukema")
-        </th>
-        <th>
-            @Html.DisplayName("Ajomäärä")
-        </th>
-        <th>
-            @Html.DisplayName("Keskikulutus")
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pvm)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Litraa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Euroa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reknro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mittarilukema)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ajomaara)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Keskikulutus)
-            </td>
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |
-                @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
-                @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
-            </td>
+            <th>
+                @Html.DisplayName("Litra")
+            </th>
+            <th>
+                @Html.DisplayName("Euro")
+            </th>
+            <th>
+                @Html.DisplayName("Rekisterinumero")
+            </th>
+            <th>
+                @Html.DisplayName("Mittarilukema")
+            </th>
+            <th>
+                @Html.DisplayName("Ajomäärä")
+            </th>
+            <th>
+                @Html.DisplayName("Keskikulutus")
+            </th>
+            <th></th>
         </tr>
-    }
-</table>
-</div>
-<div class="jumbotron">
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pvm)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Litraa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Euroa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reknro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mittarilukema)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ajomaara)
+                </td>
+                <td>
+                    @{
+                        var result = item.Litraa * 100 / item.Ajomaara;
+                        <span>@result.ToString("0.00")</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |
+                    @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
+                    @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
+                </td>
+            </tr>
+        }
+    </table>
     @*Sivuttaminen eli sivujen lukumäärä*@
     Sivu @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
 
     @*Seuraavan sivun klikkaus*@
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.currentFilter }))
 </div>
+                        }

@@ -229,5 +229,10 @@ namespace TankkauksetASPNET.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public decimal Keskiarvo(Tankkaus tankkausdata)
+        {
+            return (100 * tankkausdata.Litraa)/tankkausdata.Ajomaara;
+        }
     }
 }

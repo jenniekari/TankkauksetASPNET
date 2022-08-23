@@ -11,11 +11,15 @@ namespace TankkauksetASPNET.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Logins
     {
         public int LoginId { get; set; }
+        [Required(ErrorMessage = "Anna käyttäjätunnus!")]
         public string Username { get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Anna salasana!")]
         public string Password { get; set; }
         public string ErrorMessage { get; set; }
     }

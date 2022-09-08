@@ -43,7 +43,9 @@
         h1 {
             font-size: 250%;
         }
+    }
 
+    @@media screen and (max-width: 1100px) {
         .mittarilukema, .ajomaara, .litra, .euroa {
             display: none;
         }
@@ -136,7 +138,7 @@
                     }*@
                 </td>
                 <td>
-                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |
+                    @*@Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |*@
                     @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
                     @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
                 </td>

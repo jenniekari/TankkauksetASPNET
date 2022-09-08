@@ -16,7 +16,7 @@ namespace TankkauksetASPNET.Controllers
         TankkauksetEntities db = new TankkauksetEntities();
 
         // GET: Tankkaus
-        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page, int? pagesize)
+        public ActionResult Index(/*Tankkaus tankkausdata,*/ string sortOrder, string currentFilter, string searchString, int? page, int? pagesize)
         {
             if (Session["Username"] == null)
             {
@@ -27,6 +27,25 @@ namespace TankkauksetASPNET.Controllers
 
                 ViewBag.LoggedStatus = "In";
                 ViewBag.LoginError = 0; //ei virhettä sisäänkirjautuessa
+
+
+                /*if (tankkausdata.Ajomaara == 0)
+                    ViewBag.Message = "Ei toimi.";
+
+                if (tankkausdata.Ajomaara != 0)
+                {
+                    decimal litraa = tankkausdata.Litraa * 100;
+
+                    int ajomaara = tankkausdata.Ajomaara;
+
+                    int keskikulutus = Convert.ToInt32(litraa) / ajomaara;
+
+                    Tankkaus uusiTankkaus = new Tankkaus()
+                    {
+                        Keskikulutus = keskikulutus
+                    };
+                    db.SaveChanges();
+                }*/
 
                 ViewBag.CurrentSort = sortOrder;
                 //if-lause vb.pnsp jälkeen = Jos ensimmäinen lause on tosi ? toinen lause toteutuu : jos epätosi, niin tämä kolmas lause toteutuu
@@ -130,16 +149,56 @@ namespace TankkauksetASPNET.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TankkausId,Pvm,Litraa,Euroa,Reknro,Mittarilukema,Ajomaara,Keskikulutus")] Tankkaus tankkaus)
+        public ActionResult Create(Tankkaus tankkausdata)
         {
             if (ModelState.IsValid)
             {
-                db.Tankkaus.Add(tankkaus);
-                db.SaveChanges();
+                int[] aiemmatKilometrit = (from t in db.Tankkaus where tankkausdata.Reknro == t.Reknro
+                                           select t.Mittarilukema).ToArray();
+
+                if (aiemmatKilometrit.Length > 0)
+                {
+
+                    int suurinMittarilukema = aiemmatKilometrit.Max();
+
+                    int ajomaara = tankkausdata.Mittarilukema - suurinMittarilukema;
+
+                    decimal kulutusPerKm = (decimal)(tankkausdata.Litraa / ajomaara);
+
+                    decimal keskikulutus = kulutusPerKm * 100;
+
+                    Tankkaus uusiTankkaus = new Tankkaus()
+                    {
+                        Pvm = tankkausdata.Pvm,
+                        Litraa = tankkausdata.Litraa,
+                        Euroa = tankkausdata.Euroa,
+                        Reknro = tankkausdata.Reknro,
+                        Mittarilukema = tankkausdata.Mittarilukema,
+                        Ajomaara = ajomaara,
+                        Keskikulutus = Math.Round(keskikulutus, 2)
+                    };
+                    db.Tankkaus.Add(uusiTankkaus);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    Tankkaus uusiTankkaus = new Tankkaus()
+                    {
+                        Pvm = tankkausdata.Pvm,
+                        Litraa = tankkausdata.Litraa,
+                        Euroa = tankkausdata.Euroa,
+                        Reknro = tankkausdata.Reknro,
+                        Mittarilukema = tankkausdata.Mittarilukema,
+                        Ajomaara = 0,
+                        Keskikulutus = 0
+                    };
+                    db.Tankkaus.Add(uusiTankkaus);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
-            return View(tankkaus);
+            return View(tankkausdata);
         }
 
         // GET: Tankkaus/Edit/5
@@ -151,7 +210,6 @@ namespace TankkauksetASPNET.Controllers
             }
             else
             {
-
                 ViewBag.LoggedStatus = "In";
                 ViewBag.LoginError = 0; //ei virhettä sisäänkirjautuessa
 
@@ -168,9 +226,6 @@ namespace TankkauksetASPNET.Controllers
             }
         }
 
-        // POST: Tankkaus/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TankkausId,Pvm,Litraa,Euroa,Reknro,Mittarilukema,Ajomaara,Keskikulutus")] Tankkaus tankkaus)
@@ -183,6 +238,64 @@ namespace TankkauksetASPNET.Controllers
             }
             return View(tankkaus);
         }
+
+        // POST: Tankkaus/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        /*[HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Tankkaus tankkausdata)
+        {
+            if (ModelState.IsValid)
+            {/*
+                int[] aiemmatKilometrit = (from t in db.Tankkaus
+                                            where tankkausdata.Reknro == t.Reknro
+                                            select t.Mittarilukema).ToArray();
+
+                if (aiemmatKilometrit.Length > 0)
+                {
+
+                    int suurinMittarilukema = aiemmatKilometrit[aiemmatKilometrit.Length - 1];
+
+                    int ajomaara = tankkausdata.Mittarilukema - suurinMittarilukema;
+
+                    decimal kulutusPerKm = (decimal)(tankkausdata.Litraa / ajomaara);
+
+                    decimal keskikulutus = kulutusPerKm * 100;
+                
+                    Tankkaus uusiTankkaus = new Tankkaus()
+                    {
+                        Pvm = tankkausdata.Pvm,
+                        Litraa = tankkausdata.Litraa,
+                        Euroa = tankkausdata.Euroa,
+                        Reknro = tankkausdata.Reknro,
+                        Mittarilukema = tankkausdata.Mittarilukema,
+                        Ajomaara = tankkausdata.Ajomaara,
+                        Keskikulutus = tankkausdata.Keskikulutus
+                    };
+                    db.Entry(tankkausdata).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                /*}
+                else
+                {
+                    Tankkaus uusiTankkaus = new Tankkaus()
+                    {
+                        Pvm = tankkausdata.Pvm,
+                        Litraa = tankkausdata.Litraa,
+                        Euroa = tankkausdata.Euroa,
+                        Reknro = tankkausdata.Reknro,
+                        Mittarilukema = tankkausdata.Mittarilukema,
+                        Ajomaara = 0,
+                        Keskikulutus = 0
+                    };
+                    db.Entry(tankkausdata).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(tankkausdata);
+        }*/
 
         // GET: Tankkaus/Delete/5
         public ActionResult Delete(int? id)

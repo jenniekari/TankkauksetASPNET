@@ -1,11 +1,30 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<div class="backgroundColor">
-    <h2>@ViewBag.Title.</h2>
-    <h3>@ViewBag.Message</h3>
 
-    <p>Use this area to provide additional information.</p>
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        color: white;
+        border-radius: 6px;
+        padding: 1.2%;
+        text-align: center;
+    }
+</style>
+
+<div class="backgroundColor">
+
+    <h2>Meistä</h2>
+
+    <p>
+        Laske näppärästi autosi keskikulutus!<br />
+        <br />
+        Tämän nettisivun tarkoituksena on helpoittaa ajavien elämää, ettei keskikulutusta tarvitse laskea enää itse, vaan kätevästi meidän sivuilla.<br />
+        <br />
+        Unohda laskin ja anna meidän hoitaa laskeminen!
+        <br /><br />
+    </p>
+    <a href="~/Home/Index" class="button">Laskin</a>
 </div>
 @{
     Html.RenderPartial("_LoginModal");

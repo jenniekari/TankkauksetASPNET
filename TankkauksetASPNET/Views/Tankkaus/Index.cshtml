@@ -38,6 +38,16 @@
         text-transform: uppercase;
         text-shadow: 1px 1px 2px white, 0 0 1em black;
     }
+
+    @@media screen and (max-width: 620px) {
+        h1 {
+            font-size: 250%;
+        }
+
+        .mittarilukema, .ajomaara, .litra, .euroa {
+            display: none;
+        }
+    }
 </style>
 
 <h1>Tankkaukset</h1>
@@ -50,6 +60,19 @@
             Luo uusi tankkausdata
         </button>
         <!--@Html.ActionLink("Luo uusi", "Create")-->
+        @if(ViewBag.Message != null)
+        {
+        <script>
+
+        $(document).ready(function(){
+
+        alert('@ViewBag.Message');
+
+        });
+
+        </script>
+
+        }
         <br />
         <br />
         <p class="px-1">@Html.Label("Etsi rekisterinumerolla:")</p>
@@ -62,19 +85,19 @@
         <tr style="background-color: #00790a; color: white; font-weight: bold; font-size: 1.05em">
             <th>@Html.ActionLink("Päivämäärä", "Index", new { sortOrder = ViewBag.DateSortParm }, new { @style = "color:white;" })</th>
 
-            <th>
+            <th class="litra">
                 @Html.DisplayName("Litra")
             </th>
-            <th>
+            <th class="euroa">
                 @Html.DisplayName("Euro")
             </th>
             <th>
                 @Html.DisplayName("Rekisterinumero")
             </th>
-            <th>
+            <th class="mittarilukema">
                 @Html.DisplayName("Mittarilukema")
             </th>
-            <th>
+            <th class="ajomaara">
                 @Html.DisplayName("Ajomäärä")
             </th>
             <th>
@@ -89,26 +112,28 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Pvm)
                 </td>
-                <td>
+                <td class="litra">
                     @Html.DisplayFor(modelItem => item.Litraa)
                 </td>
-                <td>
+                <td class="euroa">
                     @Html.DisplayFor(modelItem => item.Euroa)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Reknro)
                 </td>
-                <td>
+                <td class="mittarilukema">
                     @Html.DisplayFor(modelItem => item.Mittarilukema)
                 </td>
-                <td>
+                <td class="ajomaara">
                     @Html.DisplayFor(modelItem => item.Ajomaara)
                 </td>
                 <td>
-                    @{
+                   @Html.DisplayFor(modelItem => item.Keskikulutus)
+
+                   @* @{
                         var result = item.Litraa * 100 / item.Ajomaara;
                         <span>@result.ToString("0.00")</span>
-                    }
+                    }*@
                 </td>
                 <td>
                     @Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |

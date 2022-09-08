@@ -68,10 +68,7 @@
         </dt>
 
         <dd>
-            @{
-                var result = Model.Litraa * 100 / Model.Ajomaara;
-                <span>@result.ToString("0.00")</span>
-            }        
+            @Html.DisplayFor(model => model.Keskikulutus)
         </dd>
         
     </dl>

@@ -62,7 +62,7 @@
         <dd>
             @Html.DisplayFor(model => model.Ajomaara)
         </dd>
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Keskikulutus)
         </dt>
@@ -70,8 +70,15 @@
         <dd>
             @Html.DisplayFor(model => model.Keskikulutus)
         </dd>
-        
+
     </dl>
+
+    <div class="text-danger">
+        @ViewBag.Error
+        <p>
+
+        </p>
+    </div>
 
     @using (Html.BeginForm())
     {

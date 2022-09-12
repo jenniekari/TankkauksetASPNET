@@ -16,11 +16,15 @@ namespace TankkauksetASPNET.Models
     public partial class Tankkaus
     {
         public int TankkausId { get; set; }
+        [Required(ErrorMessage = "Kirjoita p‰iv‰m‰‰r‰.")]
         public System.DateTime Pvm { get; set; }
+        [Required(ErrorMessage = "Kirjoita litrojen m‰‰r‰.")]
         public decimal Litraa { get; set; }
+        [Required(ErrorMessage = "Kirjoita litran hinta.")]
         public decimal Euroa { get; set; }
         [Required(ErrorMessage = "Kirjoita rekisterinumero.")]
         public string Reknro { get; set; }
+        [Required(ErrorMessage = "Kirjoita mittarilukema.")]
         public int Mittarilukema { get; set; }
         public int Ajomaara { get; set; }
         public Nullable<decimal> Keskikulutus { get; set; }

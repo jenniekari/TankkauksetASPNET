@@ -20,12 +20,12 @@
           </Key>
           <Property Name="TankkausId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pvm" Type="datetime" Nullable="false" />
-          <Property Name="Litraa" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Euroa" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Litraa" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Euroa" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Reknro" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Mittarilukema" Type="int" Nullable="false" />
           <Property Name="Ajomaara" Type="int" Nullable="false" />
-          <Property Name="Keskikulutus" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Keskikulutus" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityContainer Name="AutoiluModelStoreContainer">
           <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
@@ -50,12 +50,12 @@
           </Key>
           <Property Name="TankkausId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Pvm" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Litraa" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Euroa" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Litraa" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Euroa" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Reknro" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Mittarilukema" Type="Int32" Nullable="false" />
           <Property Name="Ajomaara" Type="Int32" Nullable="false" />
-          <Property Name="Keskikulutus" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Keskikulutus" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityContainer Name="TankkauksetEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Logins" EntityType="Self.Logins" />

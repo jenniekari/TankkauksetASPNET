@@ -16,7 +16,7 @@
 
         <!--<dt>@ViewBag.Totaali</dt>-->
 
-        <dt>@Html.DisplayNameFor(model => model.Pvm)</dt>
+        <dt>Päivämäärä</dt>
 
         <dd>@Html.DisplayFor(model => model.Pvm)</dd>
 
@@ -36,7 +36,7 @@
 
         <dd>@Html.DisplayFor(model => model.Mittarilukema)</dd>
 
-        <dt>@Html.DisplayNameFor(model => model.Ajomaara)</dt>
+        <dt>Ajomäärä</dt>
 
         <dd>@Html.DisplayFor(model => model.Ajomaara)</dd>
 
@@ -47,8 +47,7 @@
 
     </dl>
     <div class="col-md-offset-2 col-md-10">
-        @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TankkausId }) |
-        @Html.ActionLink("Takaisin", "Index")
+        <a class="btn btn-primary" style="margin:1px;" href="~/Tankkaus/Index/">Takaisin</a>
     </div>
 </div>
 

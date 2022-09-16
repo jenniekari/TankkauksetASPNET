@@ -138,9 +138,12 @@
                     }*@
                 </td>
                 <td>
+                    <a class="btn btn-primary" style="margin:1px;" href="~/Tankkaus/Details/@item.TankkausId">Lisätiedot</a>
+                    <a class="btn btn-danger" style="margin:1px;" href="~/Tankkaus/Delete/@item.TankkausId">Poista</a>
                     @*@Html.ActionLink("Muokkaa", "Edit", new { id = item.TankkausId }) |*@
-                    @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
-                    @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
+                    @* @Html.ActionLink("Lisätiedot", "Details", new { id = item.TankkausId }) |
+        @Html.ActionLink("Poista", "Delete", new { id = item.TankkausId })
+                    *@
                 </td>
             </tr>
         }
